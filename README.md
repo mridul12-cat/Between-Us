@@ -44,4 +44,8 @@ Camera AR associates captions with the tracked person using 2D camera coordinate
 
 Inference runs locally. Whisper assets download from public model hosts. The MediaPipe SDK can make a small telemetry request. Caption history is held in session memory.
 
-[Architecture](docs/ARCHITECTURE.md) · [Model and dataset credits](docs/THIRD_PARTY_MODELS.md)
+[Architecture](docs/ARCHITECTURE.md)
+
+## License
+
+Between Us is released under the [MIT License](LICENSE). Bundled third-party software, models, and data retain their own terms. See [third-party notices and attribution](docs/THIRD_PARTY_MODELS.md).
