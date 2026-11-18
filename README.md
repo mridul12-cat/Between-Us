@@ -2,6 +2,8 @@
 
 Between Us is a mixed-reality captioning prototype built with Meta IWSDK. It runs Whisper speech transcription and translation and GestureSign isolated ASL recognition in browser workers on the device. Recognition requires no inference API key or subscription.
 
+![Between Us Camera AR home with the camera off and Speech, Sign, and Settings controls visible](docs/screenshots/camera-ar.png)
+
 ## Run locally
 
 Use Node.js 22.12.0 from `.nvmrc`, or another version supported by `package.json`, then run:
@@ -34,6 +36,8 @@ Open the deployment URL directly over HTTPS to grant camera or microphone access
 
 Camera AR opens first. Camera and microphone capture start only when explicitly requested.
 
+![Camera AR Settings drawer showing camera, speech, and caption controls](docs/screenshots/camera-ar-settings.png)
+
 - **Start camera** shows the camera preview. Frame one person and new captions will follow them automatically. Toggle **Settings → Follow person** to place new captions in the neutral area.
 - **Speech** offers transcription in the original language or translation to English. Choose **Prepare speech**, then **Start listening**. Whisper downloads model files on first use. **Settings → Use audio file** accepts a short recording after the model is ready.
 - **Sign** produces English candidates for isolated ASL signs. Start the camera, choose **Start signing**, and review or dismiss candidates. Uncertain results always require confirmation.
@@ -44,7 +48,13 @@ Camera AR associates captions with the tracked person using 2D camera coordinate
 
 Inference runs locally. Whisper assets download from public model hosts. The MediaPipe SDK can make a small telemetry request. Caption history is held in session memory.
 
-[Architecture](docs/ARCHITECTURE.md)
+### Camera-free sign review
+
+This development screenshot shows the bundled ASL reference clip classified locally and presented for confirmation. The camera and microphone were off.
+
+![Camera AR sign review showing a reference clip and its candidate labels with Confirm and Dismiss buttons](docs/screenshots/camera-ar-sign-reference.png)
+
+[Architecture](docs/ARCHITECTURE.md) · [Contributor guide](AGENTS.md)
 
 ## License
 
