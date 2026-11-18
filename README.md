@@ -24,6 +24,12 @@ npm run dev:down
 
 The production build is in `dist/`. Serve it over HTTPS to use camera and microphone capture outside localhost. The pinned GestureSign classifier, MediaPipe task, runtime files and landmark replays are included in the repository. Use `npm run sign:assets` to restore or verify the bundled runtime files.
 
+## Deploy to Vercel
+
+Import the GitHub repository into Vercel and select `main` as the production branch. The project root is the repository root. The committed `vercel.json` selects Vite, installs the locked build dependencies, runs `npm run build`, and serves `dist/`. Use Node.js 24.x in the Vercel project settings. The app requires no environment variables or server functions.
+
+Open the deployment URL directly over HTTPS to grant camera or microphone access. Camera AR opens with capture off, and Whisper downloads its model files on first use. You can exercise the bundled ASL inference through **Lounge → Sign → Try reference clip** without granting camera access.
+
 ## Camera AR
 
 Camera AR opens first. Camera and microphone capture start only when explicitly requested.
