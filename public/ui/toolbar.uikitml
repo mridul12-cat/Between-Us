@@ -1,0 +1,29 @@
+<style>
+.panel { flex-direction: column; background-color: #f8f3eb; opacity: 0.98; border-radius: 28px; border-width: 2px; border-color: #bdc8c6; padding: 15px; gap: 9px; }
+.row { flex-direction: row; align-items: center; gap: 8px; flex-wrap: wrap; }
+.column { flex-direction: column; gap: 8px; }
+.label { font-size: 19px; font-weight: 700; color: #243e4d; }
+.small { font-size: 17px; color: #425569; }
+.eyebrow { font-size: 16px; font-weight: 700; color: #356960; letter-spacing: 1px; }
+.title { font-size: 52px; font-weight: 700; color: #252d4b; }
+.body { font-size: 24px; color: #283e53; }
+.button { padding: 10px; border-radius: 14px; background-color: #e6eae9; border-width: 2px; border-color: #c3d2cf; justify-content: center; align-items: center; cursor: pointer; }
+.button:hover { background-color: #c9dfd8; border-color: #39776f; }
+.primary { background-color: #24685c; border-color: #24685c; }
+.primary:hover { background-color: #235950; }
+.white { color: #ffffff; }
+</style>
+<div id="surface" class="panel" style="width: 665px">
+<div class="row"><div id="demo-mode" class="button"><span id="demo-mode-label" class="label">Demo</span></div><div id="mode" class="button"><span id="mode-label" class="label">Speech</span></div><div id="sign-mode" class="button"><span id="sign-mode-label" class="label">Sign</span></div><div id="speaker-select" class="button"><span id="active" class="label">Assign: Asha</span></div><div id="history" class="button"><span id="history-label" class="label">History</span></div><div id="settings" class="button"><span id="settings-label" class="label">Options</span></div></div>
+<div class="row" id="demo-controls"><div id="next" class="button primary"><span id="next-label" class="label white">Next sample</span></div><div id="demo-language" class="button"><span id="demo-language-label" class="label">Output: English</span></div><div id="tour" class="button"><span id="tour-label" class="label">Guided demo</span></div></div>
+<div class="row" id="live-controls"><div id="listen" class="button primary"><span id="listen-label" class="label white">Prepare speech</span></div><div id="input" class="button"><span id="input-label" class="label">Input: Auto</span></div><div id="output" class="button"><span id="output-label" class="label">Output: English</span></div></div>
+<div id="sign-panel" class="column">
+<div class="row"><div id="sign-start" class="button primary"><span id="sign-start-label" class="label white">Start signing</span></div><div id="sign-reference" class="button"><span id="sign-reference-label" class="label">Try reference clip</span></div><span id="sign-output" class="small">ASL to English</span></div>
+<span id="sign-status" class="small">Camera off</span>
+<span id="sign-detail" class="small">Isolated ASL signs</span>
+<div class="row" id="sign-candidates"><div id="sign-candidate-0" class="button"><span id="sign-candidate-label-0" class="label">Choice</span></div><div id="sign-candidate-1" class="button"><span id="sign-candidate-label-1" class="label">Choice</span></div><div id="sign-candidate-2" class="button"><span id="sign-candidate-label-2" class="label">Choice</span></div></div>
+<div class="row" id="sign-review"><div id="sign-confirm" class="button primary"><span id="sign-confirm-label" class="label white">Confirm</span></div><div id="sign-dismiss" class="button"><span id="sign-dismiss-label" class="label">Dismiss</span></div></div>
+<div id="sign-preview-area" class="row" style="height: 120px"><div id="sign-video" style="width: 160px; height: 120px"></div><span class="small" style="width: 440px">Keep your face, shoulders and both hands in view.</span></div></div>
+<span id="speech-status" class="small">Ready to prepare speech</span>
+<span id="privacy" class="small">Predefined examples</span>
+</div>

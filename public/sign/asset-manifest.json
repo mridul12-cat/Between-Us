@@ -1,0 +1,53 @@
+{
+  "upstreamCommit": "ffc0578e68449676b6e9545da82092679914e8c8",
+  "modelVersion": "default-2fc9038cc4",
+  "mediapipe": "1.2.2",
+  "ort": "1.31.1",
+  "assets": [
+    {
+      "path": "models/labels.json",
+      "bytes": 35890,
+      "sha256": "96244c54104bc5544f57672fdcc1de48ef46f27663ce23c2957c9035209b6439"
+    },
+    {
+      "path": "models/model.onnx",
+      "bytes": 5622355,
+      "sha256": "2fc9038cc409a5117a3eb2bb350b005663957a03e19f24c24b1f209c703c753d"
+    },
+    {
+      "path": "models/model-meta.json",
+      "bytes": 865,
+      "sha256": "1a3f2378c270838f0f315f3151aadd669edf2336a515b8d57be96ce29b8d914d"
+    },
+    {
+      "path": "replay/clips.json",
+      "bytes": 234142,
+      "sha256": "e3ff24f17258a0de6dfb0d13a07483b04025a3c919a73f2199f0dd633de045a3"
+    },
+    {
+      "path": "vendor/ort/ort-wasm-simd-threaded.wasm",
+      "bytes": 14848852,
+      "sha256": "4b884c203b0fa48d057be3332c65513ff85aa3c5bddd6946acc0fab7ecda001d"
+    },
+    {
+      "path": "vendor/ort/ort-wasm-simd-threaded.mjs",
+      "bytes": 24738,
+      "sha256": "30ed0b5cd1182ede931fea448afb567d4dc705ec957af09f108a2be5f770dac3"
+    },
+    {
+      "path": "vendor/mediapipe/wasm/vision_wasm_module_internal.wasm",
+      "bytes": 14603372,
+      "sha256": "b8927a2eebfe80dd98a426a210a9e820c8215168c06f3bcf5d4d09080f623db5"
+    },
+    {
+      "path": "vendor/mediapipe/wasm/vision_wasm_module_internal.js",
+      "bytes": 334166,
+      "sha256": "72fba0ac8a4034ce9d63f68389df1dead52069409ea621688eedf97f01d4362f"
+    },
+    {
+      "path": "vendor/mediapipe/models/holistic_landmarker.task",
+      "bytes": 13683609,
+      "sha256": "e2dab61191e2dcd0a15f943d8e3ed1dce13c82dfa597b9dd39f562975a50c3f8"
+    }
+  ]
+}

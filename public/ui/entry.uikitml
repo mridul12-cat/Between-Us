@@ -1,0 +1,23 @@
+<style>
+.panel { flex-direction: column; background-color: #f8f3eb; opacity: 0.98; border-radius: 28px; border-width: 2px; border-color: #bdc8c6; padding: 15px; gap: 9px; }
+.row { flex-direction: row; align-items: center; gap: 8px; flex-wrap: wrap; }
+.column { flex-direction: column; gap: 8px; }
+.label { font-size: 19px; font-weight: 700; color: #243e4d; }
+.small { font-size: 17px; color: #425569; }
+.eyebrow { font-size: 16px; font-weight: 700; color: #356960; letter-spacing: 1px; }
+.title { font-size: 52px; font-weight: 700; color: #252d4b; }
+.body { font-size: 24px; color: #283e53; }
+.button { padding: 10px; border-radius: 14px; background-color: #e6eae9; border-width: 2px; border-color: #c3d2cf; justify-content: center; align-items: center; cursor: pointer; }
+.button:hover { background-color: #c9dfd8; border-color: #39776f; }
+.primary { background-color: #24685c; border-color: #24685c; }
+.primary:hover { background-color: #235950; }
+.white { color: #ffffff; }
+</style>
+<div id="surface" class="panel" style="width: 590px; padding: 26px; gap: 12px">
+  <span class="eyebrow">THE CONVERSATION LOUNGE</span>
+  <span class="title">Between Us</span>
+  <span class="body">We don't all communicate the same way.</span>
+  <span class="small">Every conversation deserves to be understood.</span>
+  <div class="row"><div id="enter" class="button primary"><span id="enter-label" class="label white">Start guided demo</span></div><div id="skip-intro" class="button"><span id="skip-intro-label" class="label">Explore freely</span></div><div id="entry-ar" class="button"><span class="label">Real-World AR</span></div></div>
+  <span class="small">Select a person to place their captions. Speech and Sign use your microphone or camera with permission.</span>
+</div>

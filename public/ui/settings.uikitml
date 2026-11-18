@@ -1,0 +1,36 @@
+<style>
+.panel { flex-direction: column; background-color: #f8f3eb; opacity: 0.98; border-radius: 28px; border-width: 2px; border-color: #bdc8c6; padding: 15px; gap: 9px; }
+.row { flex-direction: row; align-items: center; gap: 8px; flex-wrap: wrap; }
+.column { flex-direction: column; gap: 8px; }
+.label { font-size: 19px; font-weight: 700; color: #243e4d; }
+.small { font-size: 17px; color: #425569; }
+.eyebrow { font-size: 16px; font-weight: 700; color: #356960; letter-spacing: 1px; }
+.title { font-size: 52px; font-weight: 700; color: #252d4b; }
+.body { font-size: 24px; color: #283e53; }
+.button { padding: 10px; border-radius: 14px; background-color: #e6eae9; border-width: 2px; border-color: #c3d2cf; justify-content: center; align-items: center; cursor: pointer; }
+.button:hover { background-color: #c9dfd8; border-color: #39776f; }
+.primary { background-color: #24685c; border-color: #24685c; }
+.primary:hover { background-color: #235950; }
+.white { color: #ffffff; }
+</style>
+<div id="surface" class="panel" style="width: 625px">
+<span class="body">Conversation options</span>
+<div class="row"><div id="size" class="button"><span id="size-label" class="label">Text: M</span></div><div id="contrast" class="button"><span id="contrast-label" class="label">High contrast</span></div><div id="motion" class="button"><span id="motion-label" class="label">Reduced motion</span></div></div>
+<div class="row"><div id="pause" class="button"><span id="pause-label" class="label">Pause</span></div><div id="xr" class="button"><span id="xr-label" class="label">Enter XR</span></div><div id="reset" class="button"><span id="reset-label" class="label">Reset</span></div><div id="clear" class="button"><span id="clear-label" class="label">Clear captions</span></div></div>
+<div class="row" id="demo-options"><div id="en" class="button"><span id="en-label" class="label">English</span></div><div id="hi" class="button"><span id="hi-label" class="label">Hindi</span></div><div id="es" class="button"><span id="es-label" class="label">Spanish</span></div><div id="scenario" class="button"><span id="scenario-label" class="label">Scene</span></div></div>
+<div class="row" id="sign-options"><div id="sign-camera" class="button"><span id="sign-camera-label" class="label">Camera: default</span></div><div id="sign-preview" class="button"><span id="sign-preview-label" class="label">Preview: off</span></div><div id="sign-auto" class="button"><span id="sign-auto-label" class="label">Auto confirm: off</span></div></div>
+<div class="row"><div id="speech-sample" class="button"><span class="label">Use audio file</span></div><div id="diagnostics" class="button"><span id="diagnostics-label" class="label">Speech diagnostics</span></div><div id="real-world-ar" class="button"><span class="label">Real-World AR</span></div><div id="close-settings" class="button primary"><span id="close-settings-label" class="label white">Done</span></div></div>
+<div class="row" id="sign-diagnostics-controls"><div id="sign-diagnostics-toggle" class="button"><span class="label">Sign diagnostics</span></div></div>
+<div id="sign-diagnostic-data" class="column">
+<span id="sign-diagnostic-line-0" class="small">Landmark visibility</span>
+<span id="sign-diagnostic-line-1" class="small">Segmentation</span>
+<span id="sign-diagnostic-line-2" class="small">Previous segment</span>
+<span id="sign-diagnostic-line-3" class="small">Model score</span>
+</div>
+<div id="speech-diagnostics" class="column">
+<div class="row"><div id="model" class="button"><span id="model-label" class="label">Model: Base</span></div><div id="backend" class="button"><span id="backend-label" class="label">Backend: CPU</span></div><div id="load-model" class="button"><span id="load-model-label" class="label">Load model</span></div></div>
+<span id="model-status" class="small">Model not loaded</span>
+<span id="model-metrics" class="small">Downloads begin on request.</span>
+</div>
+<span id="settings-note" class="small">Demo uses predefined examples.</span>
+</div>

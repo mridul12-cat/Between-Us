@@ -1,0 +1,4 @@
+# Keep the bytes of checksum-verified sign assets identical on every platform.
+public/sign/** -text
+public/sign/vendor/mediapipe/wasm/vision_wasm_module_internal.js whitespace=-blank-at-eol,-blank-at-eof
+public/sign/licenses/Dataset-CC-BY-4.0.txt whitespace=-blank-at-eof

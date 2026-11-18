@@ -1,0 +1,20 @@
+<style>
+.bubble { width: 400px; padding: 18px; gap: 7px; flex-direction: column; border-radius: 34px; border-width: 2px; border-color: #86aba4; background-color: #fffaf2; }
+.header { flex-direction: row; justify-content: space-between; align-items: center; gap: 5px; }
+.person { font-size: 23px; font-weight: 700; color: #254753; }
+.state { font-size: 17px; color: #435670; text-align: right; }
+.source { font-size: 17px; color: #47566b; }
+.actions { flex-direction: row; gap: 7px; }
+.action { padding: 8px; background-color: #e9eeec; border-radius: 13px; cursor: pointer; }
+.action:hover { background-color: #cadfd9; }
+.label { font-size: 17px; font-weight: 650; color: #254753; }
+</style>
+<div id="surface" class="bubble">
+  <div class="header"><span id="speaker" class="person">Asha</span><span id="status" class="state">Predefined</span></div>
+  <div id="text-area" style="width: 364px; height: 54px; overflow: scroll"></div>
+  <span id="source" class="source">Hindi to English</span>
+  <div class="actions" id="caption-actions">
+    <div id="pin" class="action"><span id="pin-label" class="label">Pin</span></div>
+    <div id="expand" class="action"><span id="expand-label" class="label">Collapse</span></div>
+  </div>
+</div>

@@ -1,0 +1,8 @@
+<style>
+.brand { font-size: 66px; font-weight: 700; color: #fff8eb; }
+.subtitle { font-size: 21px; font-weight: 600; color: #ebdac3; letter-spacing: 2px; }
+</style>
+<div style="width: 950px; flex-direction: column; align-items: center; gap: 6px">
+  <span class="brand">Between Us</span>
+  <span id="room-mode" class="subtitle">CONVERSATION LOUNGE</span>
+</div>

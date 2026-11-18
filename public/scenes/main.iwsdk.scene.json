@@ -1,0 +1,413 @@
+{
+  "version": "iwsdk.scene.v1",
+  "units": "meters",
+  "components": {
+    "com.iwsdk.components.IBLGradient": {
+      "sky": [
+        0.94,
+        0.95,
+        0.91,
+        1
+      ],
+      "equator": [
+        0.83,
+        0.87,
+        0.84,
+        1
+      ],
+      "ground": [
+        0.5,
+        0.55,
+        0.5,
+        1
+      ],
+      "intensity": 0.4
+    }
+  },
+  "environment": {
+    "toneMapping": "aces",
+    "exposure": 0.98,
+    "shadows": false
+  },
+  "resources": {},
+  "nodes": [
+    {
+      "id": "demo-room",
+      "name": "demo-room",
+      "transform": {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "scale": 1
+      },
+      "content": {
+        "type": "asset",
+        "asset": "room"
+      }
+    },
+    {
+      "id": "masthead",
+      "name": "masthead",
+      "transform": {
+        "position": [
+          0,
+          3.17,
+          -6.27
+        ],
+        "scale": 0.36
+      },
+      "content": {
+        "type": "asset",
+        "asset": "masthead"
+      }
+    },
+    {
+      "id": "entry",
+      "name": "entry",
+      "transform": {
+        "position": [
+          0,
+          0.94,
+          -1.54
+        ],
+        "scale": 0.25
+      },
+      "content": {
+        "type": "asset",
+        "asset": "entry"
+      },
+      "components": {
+        "RayInteractable": {},
+        "PokeInteractable": {}
+      }
+    },
+    {
+      "id": "toolbar",
+      "name": "toolbar",
+      "transform": {
+        "position": [
+          0,
+          0.79,
+          -1.78
+        ],
+        "scale": 0.27
+      },
+      "content": {
+        "type": "asset",
+        "asset": "toolbar"
+      },
+      "components": {
+        "RayInteractable": {},
+        "PokeInteractable": {}
+      }
+    },
+    {
+      "id": "settings",
+      "name": "settings",
+      "transform": {
+        "position": [
+          0,
+          1.55,
+          -1.1
+        ],
+        "scale": 0.27
+      },
+      "content": {
+        "type": "asset",
+        "asset": "settings"
+      },
+      "components": {
+        "RayInteractable": {},
+        "PokeInteractable": {}
+      }
+    },
+    {
+      "id": "history",
+      "name": "history",
+      "transform": {
+        "position": [
+          0,
+          1.65,
+          -1.25
+        ],
+        "scale": 0.27
+      },
+      "content": {
+        "type": "asset",
+        "asset": "history"
+      },
+      "components": {
+        "RayInteractable": {},
+        "PokeInteractable": {}
+      }
+    },
+    {
+      "id": "asha",
+      "name": "asha",
+      "transform": {
+        "position": [
+          -1.55,
+          0,
+          -3.15
+        ],
+        "scale": 1
+      },
+      "content": {
+        "type": "asset",
+        "asset": "asha"
+      },
+      "components": {
+        "Speaker": {
+          "speakerId": "asha",
+          "phase": 0.0
+        },
+        "RayInteractable": {}
+      },
+      "children": [
+        {
+          "id": "anchor-asha",
+          "name": "anchor-asha",
+          "transform": {
+            "position": [
+              0,
+              2.28,
+              0
+            ],
+            "scale": 0.29
+          },
+          "content": {
+            "type": "asset",
+            "asset": "caption"
+          },
+          "components": {
+            "RayInteractable": {},
+            "PokeInteractable": {}
+          }
+        },
+        {
+          "id": "identity-asha",
+          "name": "identity-asha",
+          "transform": {
+            "position": [
+              0,
+              0.34,
+              0.35
+            ],
+            "scale": 0.25
+          },
+          "content": {
+            "type": "asset",
+            "asset": "identity"
+          },
+          "components": {
+            "RayInteractable": {},
+            "PokeInteractable": {}
+          }
+        }
+      ]
+    },
+    {
+      "id": "lucia",
+      "name": "lucia",
+      "transform": {
+        "position": [
+          0,
+          0,
+          -3.7
+        ],
+        "scale": 1
+      },
+      "content": {
+        "type": "asset",
+        "asset": "lucia"
+      },
+      "components": {
+        "Speaker": {
+          "speakerId": "lucia",
+          "phase": 2.1
+        },
+        "RayInteractable": {}
+      },
+      "children": [
+        {
+          "id": "anchor-lucia",
+          "name": "anchor-lucia",
+          "transform": {
+            "position": [
+              0,
+              2.28,
+              0
+            ],
+            "scale": 0.29
+          },
+          "content": {
+            "type": "asset",
+            "asset": "caption"
+          },
+          "components": {
+            "RayInteractable": {},
+            "PokeInteractable": {}
+          }
+        },
+        {
+          "id": "identity-lucia",
+          "name": "identity-lucia",
+          "transform": {
+            "position": [
+              0,
+              0.34,
+              0.35
+            ],
+            "scale": 0.25
+          },
+          "content": {
+            "type": "asset",
+            "asset": "identity"
+          },
+          "components": {
+            "RayInteractable": {},
+            "PokeInteractable": {}
+          }
+        }
+      ]
+    },
+    {
+      "id": "alex",
+      "name": "alex",
+      "transform": {
+        "position": [
+          1.55,
+          0,
+          -3.15
+        ],
+        "scale": 1
+      },
+      "content": {
+        "type": "asset",
+        "asset": "alex"
+      },
+      "components": {
+        "Speaker": {
+          "speakerId": "alex",
+          "phase": 4.2
+        },
+        "RayInteractable": {}
+      },
+      "children": [
+        {
+          "id": "anchor-alex",
+          "name": "anchor-alex",
+          "transform": {
+            "position": [
+              0,
+              2.28,
+              0
+            ],
+            "scale": 0.29
+          },
+          "content": {
+            "type": "asset",
+            "asset": "caption"
+          },
+          "components": {
+            "RayInteractable": {},
+            "PokeInteractable": {}
+          }
+        },
+        {
+          "id": "identity-alex",
+          "name": "identity-alex",
+          "transform": {
+            "position": [
+              0,
+              0.34,
+              0.35
+            ],
+            "scale": 0.25
+          },
+          "content": {
+            "type": "asset",
+            "asset": "identity"
+          },
+          "components": {
+            "RayInteractable": {},
+            "PokeInteractable": {}
+          }
+        }
+      ]
+    },
+    {
+      "id": "anchor-neutral",
+      "name": "anchor-neutral",
+      "transform": {
+        "position": [
+          0,
+          2.06,
+          -2.66
+        ],
+        "scale": 0.29
+      },
+      "content": {
+        "type": "asset",
+        "asset": "caption"
+      },
+      "components": {
+        "RayInteractable": {},
+        "PokeInteractable": {}
+      }
+    },
+    {
+      "id": "sun",
+      "name": "Warm daylight",
+      "transform": {
+        "position": [
+          0,
+          6,
+          1
+        ],
+        "rotationDeg": [
+          -55,
+          -20,
+          0
+        ]
+      },
+      "components": {
+        "DirectionalLight": {
+          "color": [
+            1,
+            0.85,
+            0.67,
+            1
+          ],
+          "intensity": 1.25
+        }
+      }
+    },
+    {
+      "id": "fill",
+      "name": "Soft skylight",
+      "components": {
+        "HemisphereLight": {
+          "skyColor": [
+            0.81,
+            0.87,
+            1,
+            1
+          ],
+          "groundColor": [
+            0.58,
+            0.37,
+            0.28,
+            1
+          ],
+          "intensity": 1.4
+        }
+      }
+    }
+  ],
+  "authoring": {
+    "views": []
+  }
+}

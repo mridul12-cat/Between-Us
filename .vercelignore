@@ -1,0 +1,9 @@
+/artifacts/
+/submission/
+/.iwsdk/
+/.agents/
+/.claude/
+/.cursor/
+/node_modules/
+/dist/
+*.log
