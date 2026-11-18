@@ -5,7 +5,7 @@ import type { SpeechSession } from '../speech/session';
 import type { SignSession } from '../sign/session';
 import type { TrackerFrame } from '../sign/vendor/tracker-client';
 import { CameraTracking } from './camera-tracking';
-import { captionPosition, containVideo, projectPoint } from './person-anchor';
+import { captionPosition, containVideo, projectPoint, type PersonTrack } from './person-anchor';
 import './viewport.css';
 
 const labels = {en:'English',hi:'Hindi',es:'Spanish',ase:'ASL',und:'Auto'};
@@ -23,7 +23,7 @@ export class ArViewport {
   visible = false;
   mode: Input = 'speech';
   private id?: string;
-  private selected?: string;
+  private followPerson = true;
   private mirror = true;
   private hadFreshTrack = false;
   private bubbleKey = '';
@@ -34,6 +34,7 @@ export class ArViewport {
   private readonly controls: HTMLElement;
   private readonly bubble: HTMLElement;
   private readonly dock: HTMLElement;
+  private readonly review: HTMLElement;
   private readonly marker: HTMLButtonElement;
   private readonly resize: ResizeObserver;
   private raf?: number;
@@ -68,7 +69,7 @@ export class ArViewport {
           <p>Frame one person’s face and hands for captions. Camera video stays on this device.</p>
           <button data-ar="welcome-start" class="ar-primary" type="button">Start camera <span aria-hidden="true">→</span></button>
         </div>
-        <button class="ar-marker" type="button" hidden aria-label="Select tracked person"><span aria-hidden="true"></span></button>
+        <button class="ar-marker" type="button" hidden aria-label="Follow person"><span aria-hidden="true"></span></button>
         <article class="ar-bubble" hidden>
           <div class="ar-bubble-meta"><strong data-ar="bubble-to"></strong><span data-ar="bubble-state"></span></div>
           <p data-ar="bubble-text" aria-live="polite" tabindex="0"></p>
@@ -112,7 +113,7 @@ export class ArViewport {
                 <button data-ar="fullscreen" type="button">Fullscreen</button>
               </div>
               <div class="ar-setting-actions">
-                <button data-ar="person" type="button" aria-pressed="false" disabled>Select tracked person</button>
+                <button data-ar="person" type="button" aria-pressed="true">Follow person</button>
                 <small data-ar="destination">Neutral captions</small>
               </div>
               <small data-ar="fullscreen-status" role="status"></small>
@@ -152,6 +153,7 @@ export class ArViewport {
     this.controls=this.root.querySelector('.ar-chrome')!;
     this.bubble=this.root.querySelector('.ar-bubble')!;
     this.dock=this.root.querySelector('.ar-dock')!;
+    this.review=this.get('candidates');
     this.marker=this.root.querySelector('.ar-marker')!;
     this.feed.append(this.tracking.camera.video);
     this.tracking.camera.video.setAttribute('aria-label','Local webcam preview');
@@ -191,8 +193,8 @@ export class ArViewport {
       // Changing a choice never starts a new stream.
       this.tracking.stop();
     });
-    this.marker.addEventListener('click',()=>this.select());
-    this.click('person',()=>this.select());
+    this.marker.addEventListener('click',()=>this.toggleFollowing());
+    this.click('person',()=>this.toggleFollowing());
     this.click('speech-mode',()=>this.actions.mode('speech'));
     this.click('sign-mode',()=>this.actions.mode('sign'));
     this.click('speech',()=>this.actions.speech());
@@ -294,17 +296,15 @@ export class ArViewport {
     this.position();
   }
 
-  selectedPerson(): string | undefined {
+  captionAnchor(): string | undefined {
+    if(!this.followPerson || !this.tracking.camera.active)return;
     const track=this.tracking.anchors.current(performance.now());
-    return track?.status==='visible' && track.id===this.selected ? this.selected : undefined;
+    return track?.status==='visible'?track.id:undefined;
   }
 
-  private select(): void {
-    const track=this.tracking.anchors.current(performance.now());
-    if(track?.status!=='visible')return;
-    this.selected=this.selected===track.id?undefined:track.id;
+  private toggleFollowing(): void {
+    this.followPerson=!this.followPerson;
     this.refresh();
-    this.position();
   }
 
   private frame(frame: TrackerFrame):void {
@@ -324,7 +324,6 @@ export class ArViewport {
     const changedId=this.id!==track?.id;
     const changedFresh=this.hadFreshTrack!==fresh;
     if(changedId || (this.hadFreshTrack&&!fresh)) {
-      this.selected=undefined;
       this.sign.interruptShared();
     }
     if(changedId) {
@@ -358,9 +357,11 @@ export class ArViewport {
     const width=this.feed.clientWidth, height=this.feed.clientHeight;
     const top=this.feed.offsetTop;
     if(!track || !video.videoWidth || !this.tracking.camera.active || !width || !height) {
+      this.review.classList.remove('ar-review-floating');
       this.dockBubble();
       return;
     }
+    this.positionReview(track,width,top,video);
     const rect=containVideo(width,height,video.videoWidth,video.videoHeight);
     rect.y+=top;
     const head=projectPoint(track.head,rect,this.mirror);
@@ -384,6 +385,32 @@ export class ArViewport {
       this.bubble.style.left=`${layout.x}px`;
       this.bubble.style.top=`${layout.y}px`;
     }else this.dockBubble();
+  }
+
+  private positionReview(
+    track:PersonTrack,
+    width:number, top:number, video:HTMLVideoElement,
+  ):void {
+    const pending=this.sign.pending;
+    const floating=this.review.classList.contains('ar-review-floating');
+    if(this.review.hidden || pending?.input!=='webcam' || pending.speakerId!==track.id ||
+        !this.followPerson || track.status!=='visible') {
+      if(floating)this.review.classList.remove('ar-review-floating');
+      return;
+    }
+    // Predict the video framing once the review no longer takes space in the bottom controls.
+    const reviewHeight=this.review.offsetHeight;
+    const availableHeight=this.controls.offsetTop-top-6+(floating?0:reviewHeight+8);
+    const rect=containVideo(width,availableHeight,video.videoWidth,video.videoHeight);
+    rect.y+=top;
+    const area={x:this.controls.offsetLeft,y:top,width:this.controls.clientWidth,height:availableHeight};
+    const layout=captionPosition(track.bounds,rect,this.mirror,this.review.offsetWidth,reviewHeight,area);
+    const attached=Boolean(layout && layout.placement!=='below');
+    this.review.classList.toggle('ar-review-floating',attached);
+    if(attached&&layout) {
+      this.review.style.setProperty('--ar-review-x',`${layout.x-this.controls.offsetLeft}px`);
+      this.review.style.setProperty('--ar-review-y',`${layout.y-this.controls.offsetTop}px`);
+    }
   }
 
   private dockBubble():void {
@@ -416,7 +443,7 @@ export class ArViewport {
     if(!this.visible)return;
     const {tracking,speech,sign}=this;
     const track=tracking.anchors.current(performance.now());
-    const selected=Boolean(this.selectedPerson());
+    const attached=Boolean(this.captionAnchor());
     const active=tracking.camera.active;
     this.root.dataset.contrast=String(this.preferences.contrast);
     this.root.dataset.motion=String(!this.preferences.reducedMotion);
@@ -434,13 +461,11 @@ export class ArViewport {
     this.text('track-status',tracking.anchors.ambiguous?'Multiple detections · frame one person':
       track?.status==='uncertain'?'Tracking uncertain':track?'Person detected':
         active?'Looking for a person':'Person tracking off');
-    this.text('destination',selected?'Captions attached':'Neutral captions');
-    this.text('person',selected?'Clear person selection':'Select tracked person');
-    this.get<HTMLButtonElement>('person').disabled=track?.status!=='visible';
+    this.text('destination',attached?'Captions follow person':this.followPerson?'Waiting for a person':'Neutral captions');
     this.marker.disabled=track?.status!=='visible';
-    this.marker.setAttribute('aria-pressed',String(selected));
-    this.marker.setAttribute('aria-label',selected?'Clear person selection':'Select tracked person');
-    this.press('person',selected);
+    this.marker.setAttribute('aria-pressed',String(attached));
+    this.marker.setAttribute('aria-label','Follow person');
+    this.press('person',this.followPerson);
     const devices=this.get<HTMLSelectElement>('devices');
     const deviceKey=JSON.stringify(tracking.devices.map(d=>[d.deviceId,d.label]));
     if(devices.dataset.key!==deviceKey){
@@ -517,7 +542,7 @@ export class ArViewport {
   }
 
   snapshot() {
-    return {visible:this.visible,mode:this.mode,track:this.tracking.anchors.current(performance.now()),selected:this.selectedPerson(),
+    return {visible:this.visible,mode:this.mode,track:this.tracking.anchors.current(performance.now()),selected:this.captionAnchor(),
       mirrored:this.mirror,camera:this.tracking.state,active:this.tracking.camera.active,
       frames:this.tracking.frameCount,meanLandmarkMs:this.tracking.meanMs,error:this.tracking.lastError,message:this.tracking.message};
   }

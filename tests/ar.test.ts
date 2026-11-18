@@ -31,6 +31,14 @@ describe('camera-aligned placement',()=>{
     expect(captionPosition({left:0,right:1,top:0,bottom:1},rect,false,400,180)).toBeUndefined();
   });
 
+  it('uses space above the camera image for a floating review without covering the face',()=>{
+    const video={x:100,y:160,width:400,height:300};
+    const area={x:10,y:50,width:580,height:410};
+    const face={left:.4,right:.6,top:.1,bottom:.35};
+    expect(captionPosition(face,video,false,260,90,area)).toMatchObject({x:170,placement:'above'});
+    expect(captionPosition(face,video,false,580,90,area)).toBeUndefined();
+  });
+
   it('places pose fallback only with a plausible nose and shoulders',()=>{
     expect(observeHead(emptyFrame())).toBeUndefined();
     const head=observeHead(pose(.4))!;

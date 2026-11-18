@@ -14,7 +14,7 @@ export interface CaptionEvent {
   timestamp: number;
   status: RecognitionStatus;
   provenance: 'predefined-demo' | 'model-output';
-  inference?: {runtime:'local-whisper';task:'transcribe'|'translate';input?:'microphone'|'recorded-sample';backend:'webgpu'|'wasm';association:'manual'|'neutral'} | {runtime:'local-gesturesign';task:'isolated-sign';backend:'wasm';association:'manual'|'neutral';modelVersion:string;input:'webcam'|'reference-replay';confirmed:boolean;score:number};
+  inference?: {runtime:'local-whisper';task:'transcribe'|'translate';input?:'microphone'|'recorded-sample';backend:'webgpu'|'wasm';association:'manual'|'neutral'|'camera-track'} | {runtime:'local-gesturesign';task:'isolated-sign';backend:'wasm';association:'manual'|'neutral'|'camera-track';modelVersion:string;input:'webcam'|'reference-replay';confirmed:boolean;score:number};
 }
 export type CaptionState = 'waiting' | 'receiving' | 'displaying' | 'uncertain' | 'pinned' | 'paused' | 'expired';
 export interface CaptionRecord {

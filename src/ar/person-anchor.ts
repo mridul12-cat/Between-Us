@@ -46,7 +46,7 @@ export function observeHead(frame: Frame): HeadObservation | undefined {
 }
 
 // One local track. Brief detector gaps hold position; a sustained gap or
-// discontinuity requires a new explicit selection.
+// discontinuity gets a new anchor ID.
 export class WebcamAnchors implements SpatialPersonAnchorProvider {
   private serial = 0;
   private track?: PersonTrack;
@@ -108,19 +108,22 @@ export function projectPoint(point:Point, rect:ReturnType<typeof containVideo>, 
   return {x:rect.x+(mirror?1-point.x:point.x)*rect.width,y:rect.y+point.y*rect.height};
 }
 
-export function captionPosition(bounds:Bounds, rect:ReturnType<typeof containVideo>, mirror:boolean, width:number, height:number) {
+export function captionPosition(
+  bounds:Bounds, rect:ReturnType<typeof containVideo>, mirror:boolean, width:number, height:number, area=rect,
+) {
   const mid = projectPoint({x:(bounds.left+bounds.right)/2,y:bounds.top},rect,mirror);
   const bottom = projectPoint({x:0,y:bounds.bottom},rect,mirror).y;
   const gap = Math.max(8,Math.min(24,(bottom-mid.y)*0.2));
-  const minX=rect.x+6, maxX=rect.x+rect.width-width-6;
+  const minX=area.x+6, maxX=area.x+area.width-width-6;
+  if(maxX<minX||height>area.height-12)return undefined;
   const fitX=(x:number)=>Math.max(minX,Math.min(x,maxX));
   const above=mid.y-gap-height;
-  if (above >= rect.y+6) return {x:fitX(mid.x-width/2),y:above,placement:'above'} as const;
+  if (above >= area.y+6) return {x:fitX(mid.x-width/2),y:above,placement:'above'} as const;
   const edges=[projectPoint({x:bounds.left,y:0},rect,mirror).x,projectPoint({x:bounds.right,y:0},rect,mirror).x];
   const [left,right]=[Math.min(...edges),Math.max(...edges)];
-  const y=Math.max(rect.y+6,Math.min(mid.y,rect.y+rect.height-height-6));
+  const y=Math.max(area.y+6,Math.min(mid.y,area.y+area.height-height-6));
   if (right+gap <= maxX) return {x:right+gap,y,placement:'side'} as const;
   if (left-gap-width >= minX) return {x:left-gap-width,y,placement:'side'} as const;
-  if (bottom+gap+height <= rect.y+rect.height-6) return {x:fitX(mid.x-width/2),y:bottom+gap,placement:'below'} as const;
+  if (bottom+gap+height <= area.y+area.height-6) return {x:fitX(mid.x-width/2),y:bottom+gap,placement:'below'} as const;
   return undefined;
 }

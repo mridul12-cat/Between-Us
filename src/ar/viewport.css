@@ -182,6 +182,9 @@
   width: max-content; max-width: min(100%, 31rem); max-height: 31dvh;
   overflow: auto; border-radius: 16px;
 }
+.ar-review.ar-review-floating {
+  position: absolute; inset: var(--ar-review-y) auto auto var(--ar-review-x);
+}
 .ar-review-head { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; }
 .ar-review-head > span { color: var(--ar-muted); font-size: .72rem; }
 .ar-review[data-uncertain=true] .ar-review-head strong { color: #854719; }
@@ -245,7 +248,7 @@
   background: #faf7ecf5; box-shadow: 0 12px 30px #0d192962; backdrop-filter: blur(14px);
 }
 .ar-bubble-meta { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 4px 12px; color: #425e54; font-size: .73rem; }
-.ar-bubble p { font-size: max(var(--ar-text, 24px), 1.25rem); line-height: 1.26; margin: 3px 0; max-height: 4em; min-height: 0; overflow: auto; overflow-wrap: anywhere; }
+.ar-bubble p { font-size: max(calc(var(--ar-text, 24px) - 2px), 1.125rem); line-height: 1.26; margin: 3px 0; max-height: 4em; min-height: 0; overflow: auto; overflow-wrap: anywhere; }
 .ar-bubble button { min-height: 44px; padding: 4px 9px; font-size: .75rem; }
 .ar-bubble.ar-docked {
   position: relative; top: auto !important; left: auto !important; max-width: min(430px, 100%) !important;

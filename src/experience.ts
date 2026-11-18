@@ -245,7 +245,7 @@ export class ExperienceSystem extends createSystem({
     this.cleanupFuncs.push(()=>el.removeEventListener('click',fn));
   }
   private captionDestination():string|undefined {
-    if(this.ar?.visible)return this.ar.selectedPerson();
+    if(this.ar?.visible)return this.ar.captionAnchor();
     return this.selectedId==='neutral'?undefined:this.selectedId;
   }
   receive(event:CaptionEvent):boolean {
@@ -253,12 +253,11 @@ export class ExperienceSystem extends createSystem({
       if(event.provenance==='predefined-demo')return false;
       // Honor the destination snapshotted at capture, and never transfer late
       // output to a newly detected person.
-      const destination=this.ar.selectedPerson();
-      if(!destination || event.speakerId!==destination ||
-          (event.inference?.runtime==='local-gesturesign'&&event.inference.input==='reference-replay')){
-        event={...event,speakerId:undefined,
-          inference:event.inference?{...event.inference,association:'neutral'}:undefined};
-      }
+      const destination=this.ar.captionAnchor();
+      const referenceReplay=event.inference?.runtime==='local-gesturesign'&&event.inference.input==='reference-replay';
+      const speakerId=destination===event.speakerId&&!referenceReplay?destination:undefined;
+      event={...event,speakerId,
+        inference:event.inference?{...event.inference,association:speakerId?'camera-track':'neutral'}:undefined};
     }
     const accepted=this.captions.receive(event);
     if(accepted)this.refresh();
